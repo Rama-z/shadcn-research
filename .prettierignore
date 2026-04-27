@@ -1,0 +1,7 @@
+dist
+node_modules
+public
+*.md
+package-lock.json
+.vscode
+.gemini
