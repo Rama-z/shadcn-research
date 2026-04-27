@@ -51,13 +51,17 @@ export function LoginForm() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white font-sans">
-      {/* Background Mesh */}
-      <div className="pointer-events-none absolute inset-0 opacity-50">
-        <img
-          src="/assets/images/mesh-bg.svg"
-          alt="Background"
-          className="h-full w-full scale-150 object-cover"
-        />
+      {/* Background Video */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover"
+        >
+          <source src="/assets/videos/login-animation.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Brand Identity
