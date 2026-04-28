@@ -1,4 +1,4 @@
-import { Bell, Search, Moon, Sun } from "lucide-react";
+import { Bell, Search, Moon, Sun, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,7 +19,7 @@ export function Navbar() {
   const isDark = theme === "dark";
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border bg-background/80 px-6 backdrop-blur-md">
+    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-[#E5E5E5] bg-white px-6">
       {/* Search */}
       <div className="flex-1">
         <div className="relative max-w-md">
@@ -33,13 +33,17 @@ export function Navbar() {
 
       {/* Actions */}
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-lg">
-          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        <Button variant="ghost" size="icon" className="rounded-lg">
+          <Info className="h-4 w-4 text-[#0A0A0A]" />
         </Button>
 
         <Button variant="ghost" size="icon" className="relative rounded-lg">
           <Bell className="h-4 w-4" />
           <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-violet-600" />
+        </Button>
+
+        <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-lg">
+          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
 
         {/* User menu */}

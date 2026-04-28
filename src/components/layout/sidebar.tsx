@@ -10,15 +10,25 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { useSidebarStore } from "@/store/sidebar-store";
 import { useAuthStore } from "@/store/auth-store";
+import { UnemLogo } from "../organisms/svg-resource/unem-logo/UnemLogo.tsx";
 
-const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Roles", href: "/roles", icon: Shield },
-  { name: "Permissions", href: "/permissions", icon: KeyRound },
+const menuSections = [
+  {
+    title: "DATA MANAGEMENT",
+    items: [
+      { name: "Dashboard", href: "/", icon: LayoutDashboard },
+      { name: "Users", href: "/users", icon: Users },
+    ],
+  },
+  {
+    title: "ACCESS MANAGEMENT",
+    items: [
+      { name: "Roles", href: "/roles", icon: Shield },
+      { name: "Permissions", href: "/permissions", icon: KeyRound },
+    ],
+  },
 ];
 
 const bottomNav = [{ name: "Settings", href: "/settings", icon: Settings }];
@@ -31,61 +41,79 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-border bg-card transition-all duration-300",
-        isCollapsed ? "w-[68px]" : "w-64"
+        "fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#E5E5E5] bg-white transition-all duration-300",
+        isCollapsed ? "w-[68px]" : "w-60"
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between px-4">
+      <div className="flex h-16 items-center px-4">
         {!isCollapsed && (
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600">
-              <span className="text-sm font-bold text-white">A</span>
+          <div className="flex items-center gap-3">
+            <img
+              src="/assets/images/logo-telkomsel.png"
+              alt="Telkomsel Logo"
+              className="h-8 w-auto object-contain"
+            />
+            <div className="flex flex-col">
+              <div className="origin-left scale-[0.85]">
+                <UnemLogo />
+              </div>
+              <span className="text-[10px] font-normal leading-tight tracking-[0.005em] text-[#737373]">
+                Network Management
+              </span>
             </div>
-            <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-lg font-semibold text-transparent">
-              AdminHub
-            </span>
           </div>
         )}
         {isCollapsed && (
-          <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600">
-            <span className="text-sm font-bold text-white">A</span>
+          <div className="mx-auto">
+            <img
+              src="/assets/images/logo-telkomsel.png"
+              alt="Telkomsel Logo"
+              className="h-8 w-auto object-contain"
+            />
           </div>
         )}
       </div>
 
-      <Separator />
-
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4">
-        {navigation.map((item) => {
-          const isActive = matchRoute({ to: item.href, fuzzy: true });
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
-                isActive
-                  ? "bg-violet-600/10 text-violet-600 dark:text-violet-400"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              <item.icon
-                className={cn(
-                  "h-5 w-5 shrink-0 transition-colors",
-                  isActive
-                    ? "text-violet-600 dark:text-violet-400"
-                    : "text-muted-foreground group-hover:text-foreground"
-                )}
-              />
-              {!isCollapsed && <span>{item.name}</span>}
-            </Link>
-          );
-        })}
+      <nav className="flex-1 space-y-6 overflow-y-auto px-4 py-4">
+        {menuSections.map((section) => (
+          <div key={section.title} className="space-y-1">
+            {!isCollapsed && (
+              <h3 className="px-3 py-2 text-[11px] font-semibold tracking-wider text-[#737373]/70">
+                {section.title}
+              </h3>
+            )}
+            <div className="space-y-0.5">
+              {section.items.map((item) => {
+                const isActive = matchRoute({ to: item.href, fuzzy: true });
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={cn(
+                      "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                      isActive
+                        ? "bg-[#172554] text-white shadow-sm"
+                        : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
+                    )}
+                  >
+                    <item.icon
+                      className={cn(
+                        "h-4 w-4 shrink-0 transition-colors",
+                        isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
+                      )}
+                    />
+                    {!isCollapsed && <span>{item.name}</span>}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
 
-      <div className="space-y-1 px-3 pb-2">
+      <div className="space-y-0.5 px-4 pb-4">
         {bottomNav.map((item) => {
           const isActive = matchRoute({ to: item.href, fuzzy: true });
           return (
@@ -93,42 +121,56 @@ export function Sidebar() {
               key={item.name}
               to={item.href}
               className={cn(
-                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-violet-600/10 text-violet-600 dark:text-violet-400"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "bg-[#172554] text-white shadow-sm"
+                  : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
               )}
             >
-              <item.icon className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-foreground" />
+              <item.icon
+                className={cn(
+                  "h-4 w-4 shrink-0 transition-colors",
+                  isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
+                )}
+              />
               {!isCollapsed && <span>{item.name}</span>}
             </Link>
           );
         })}
       </div>
 
-      <Separator />
+      <div className="mt-auto space-y-0.5 px-4 pb-4">
+        {bottomNav.map((item) => {
+          const isActive = matchRoute({ to: item.href, fuzzy: true });
+          return (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={cn(
+                "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                isActive
+                  ? "bg-[#172554] text-white shadow-sm"
+                  : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
+              )}
+            >
+              <item.icon
+                className={cn(
+                  "h-4 w-4 shrink-0 transition-colors",
+                  isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
+                )}
+              />
+              {!isCollapsed && <span>{item.name}</span>}
+            </Link>
+          );
+        })}
 
-      {/* User section */}
-      <div className="p-3">
-        {!isCollapsed && user && (
-          <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 text-xs font-bold text-white">
-              {user.name.charAt(0)}
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <p className="truncate text-sm font-medium">{user.name}</p>
-              <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-            </div>
-            <Button variant="ghost" size="icon" onClick={logout} className="h-8 w-8 shrink-0">
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        )}
-        {isCollapsed && (
-          <Button variant="ghost" size="icon" onClick={logout} className="w-full">
-            <LogOut className="h-4 w-4" />
-          </Button>
-        )}
+        <button
+          onClick={logout}
+          className="group flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-[#404040] transition-all duration-200 hover:bg-red-50 hover:text-red-600"
+        >
+          <LogOut className="h-4 w-4 shrink-0 text-[#737373] transition-colors group-hover:text-red-600" />
+          {!isCollapsed && <span>Logout</span>}
+        </button>
       </div>
 
       {/* Collapse toggle */}

@@ -3,19 +3,16 @@ import {
   createRoute,
   createRootRoute,
   Outlet,
-  redirect,
 } from "@tanstack/react-router";
-import { Sidebar } from "@/components/layout/sidebar";
-import { Navbar } from "@/components/layout/navbar";
-import { LoginForm } from "@/features/auth/components/login-form";
+
+import { LoginForm } from "../features/auth/components/login-form.tsx";
 import { DashboardPage } from "./dashboard-page";
 import { UsersPage } from "./users-page";
 import { RolesPage } from "./roles-page";
 import { PermissionsPage } from "./permissions-page";
 import { SettingsPage } from "./settings-page";
-import { useAuthStore } from "@/store/auth-store";
-import { cn } from "@/lib/utils";
-import { useSidebarStore } from "@/store/sidebar-store";
+
+import { DashboardLayout } from "../components/layout/dashboard-layout.tsx";
 
 // ─── Root Route ─────────────────────────────────────
 const rootRoute = createRootRoute({
@@ -28,23 +25,6 @@ const loginRoute = createRoute({
   path: "/login",
   component: LoginForm,
 });
-
-// ─── Authenticated Layout ───────────────────────────
-function DashboardLayout() {
-  const isCollapsed = useSidebarStore((s) => s.isCollapsed);
-
-  return (
-    <div className="min-h-screen bg-background">
-      <Sidebar />
-      <div className={cn("transition-all duration-300", isCollapsed ? "ml-[68px]" : "ml-64")}>
-        <Navbar />
-        <main className="p-6">
-          <Outlet />
-        </main>
-      </div>
-    </div>
-  );
-}
 
 const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
