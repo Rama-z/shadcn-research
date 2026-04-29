@@ -19,7 +19,7 @@ export function Navbar() {
   const isDark = theme === "dark";
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-[#E5E5E5] bg-white px-6">
+    <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border bg-card px-6">
       {/* Search */}
       <div className="flex-1">
         <div className="relative max-w-md">
@@ -34,7 +34,7 @@ export function Navbar() {
       {/* Actions */}
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" className="rounded-lg">
-          <Info className="h-4 w-4 text-[#0A0A0A]" />
+          <Info className="h-4 w-4 text-foreground" />
         </Button>
 
         <Button variant="ghost" size="icon" className="relative rounded-lg">

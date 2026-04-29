@@ -55,19 +55,15 @@ function AuthGate() {
 }
 
 function App() {
+  const currentTheme = useThemeStore((s) => s.theme);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthGate />
       <Toaster
-        theme="dark"
+        theme={currentTheme}
         position="bottom-right"
         richColors
-        toastOptions={{
-          style: {
-            background: "hsl(240, 10%, 6%)",
-            border: "1px solid hsl(240, 3.7%, 15.9%)",
-          },
-        }}
       />
     </QueryClientProvider>
   );

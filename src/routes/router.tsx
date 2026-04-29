@@ -11,6 +11,11 @@ import { UsersPage } from "./users-page";
 import { RolesPage } from "./roles-page";
 import { PermissionsPage } from "./permissions-page";
 import { SettingsPage } from "./settings-page";
+import { DataQualityPage } from "./data-quality-page";
+import { MetadataPage } from "./metadata-page";
+import { ReferencePage } from "./reference-page";
+import { ActivityLogPage } from "./activity-log-page";
+import { FeatureManagementPage } from "./feature-management-page";
 
 import { DashboardLayout } from "../components/layout/dashboard-layout.tsx";
 
@@ -37,6 +42,41 @@ const dashboardRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/",
   component: DashboardPage,
+});
+
+// ─── Data Quality Route ─────────────────────────────
+const dataQualityRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/data-quality",
+  component: DataQualityPage,
+});
+
+// ─── Metadata Route ─────────────────────────────────
+const metadataRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/metadata",
+  component: MetadataPage,
+});
+
+// ─── Reference Route ────────────────────────────────
+const referenceRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/reference",
+  component: ReferencePage,
+});
+
+// ─── Activity Log Route ─────────────────────────────
+const activityLogRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/activity-log",
+  component: ActivityLogPage,
+});
+
+// ─── Feature Management Route ───────────────────────
+const featureManagementRoute = createRoute({
+  getParentRoute: () => layoutRoute,
+  path: "/feature-management",
+  component: FeatureManagementPage,
 });
 
 // ─── Users Route ────────────────────────────────────
@@ -72,6 +112,11 @@ const routeTree = rootRoute.addChildren([
   loginRoute,
   layoutRoute.addChildren([
     dashboardRoute,
+    dataQualityRoute,
+    metadataRoute,
+    referenceRoute,
+    activityLogRoute,
+    featureManagementRoute,
     usersRoute,
     rolesRoute,
     permissionsRoute,

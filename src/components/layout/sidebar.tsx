@@ -1,9 +1,10 @@
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import {
-  LayoutDashboard,
-  Users,
-  Shield,
-  KeyRound,
+  ShieldCheck,
+  Database,
+  BookOpen,
+  ScrollText,
+  Cog,
   Settings,
   ChevronLeft,
   LogOut,
@@ -18,16 +19,18 @@ const menuSections = [
   {
     title: "DATA MANAGEMENT",
     items: [
-      { name: "Dashboard", href: "/", icon: LayoutDashboard },
-      { name: "Users", href: "/users", icon: Users },
+      { name: "Data Quality", href: "/data-quality", icon: ShieldCheck },
+      { name: "Metadata", href: "/metadata", icon: Database },
+      { name: "Reference", href: "/reference", icon: BookOpen },
     ],
   },
   {
-    title: "ACCESS MANAGEMENT",
-    items: [
-      { name: "Roles", href: "/roles", icon: Shield },
-      { name: "Permissions", href: "/permissions", icon: KeyRound },
-    ],
+    title: "MONITORING",
+    items: [{ name: "Activity Log", href: "/activity-log", icon: ScrollText }],
+  },
+  {
+    title: "CONFIGURATION",
+    items: [{ name: "Feature Management", href: "/feature-management", icon: Cog }],
   },
 ];
 
@@ -35,13 +38,13 @@ const bottomNav = [{ name: "Settings", href: "/settings", icon: Settings }];
 
 export function Sidebar() {
   const { isCollapsed, setCollapsed } = useSidebarStore();
-  const { user, logout } = useAuthStore();
+  const { logout } = useAuthStore();
   const matchRoute = useMatchRoute();
 
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#E5E5E5] bg-white transition-all duration-300",
+        "fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-border bg-card transition-all duration-300",
         isCollapsed ? "w-[68px]" : "w-60"
       )}
     >
@@ -54,11 +57,11 @@ export function Sidebar() {
               alt="Telkomsel Logo"
               className="h-8 w-auto object-contain"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col text-foreground">
               <div className="origin-left scale-[0.85]">
                 <UnemLogo />
               </div>
-              <span className="text-[10px] font-normal leading-tight tracking-[0.005em] text-[#737373]">
+              <span className="text-[10px] font-normal leading-tight tracking-[0.005em] text-muted-foreground">
                 Network Management
               </span>
             </div>
@@ -80,7 +83,7 @@ export function Sidebar() {
         {menuSections.map((section) => (
           <div key={section.title} className="space-y-1">
             {!isCollapsed && (
-              <h3 className="px-3 py-2 text-[11px] font-semibold tracking-wider text-[#737373]/70">
+              <h3 className="px-3 py-2 text-[11px] font-semibold tracking-wider text-muted-foreground/70">
                 {section.title}
               </h3>
             )}
@@ -92,16 +95,18 @@ export function Sidebar() {
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                      "group flex items-center gap-3 rounded-md py-2 pl-2.5 text-sm font-medium transition-all duration-200",
                       isActive
                         ? "bg-[#172554] text-white shadow-sm"
-                        : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
+                        : "text-foreground/80 hover:bg-muted hover:text-foreground"
                     )}
                   >
                     <item.icon
                       className={cn(
                         "h-4 w-4 shrink-0 transition-colors",
-                        isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
+                        isActive
+                          ? "text-white"
+                          : "text-muted-foreground group-hover:text-foreground"
                       )}
                     />
                     {!isCollapsed && <span>{item.name}</span>}
@@ -112,32 +117,6 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
-
-      <div className="space-y-0.5 px-4 pb-4">
-        {bottomNav.map((item) => {
-          const isActive = matchRoute({ to: item.href, fuzzy: true });
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
-                isActive
-                  ? "bg-[#172554] text-white shadow-sm"
-                  : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
-              )}
-            >
-              <item.icon
-                className={cn(
-                  "h-4 w-4 shrink-0 transition-colors",
-                  isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
-                )}
-              />
-              {!isCollapsed && <span>{item.name}</span>}
-            </Link>
-          );
-        })}
-      </div>
 
       <div className="mt-auto space-y-0.5 px-4 pb-4">
         {bottomNav.map((item) => {
@@ -150,13 +129,13 @@ export function Sidebar() {
                 "group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
                 isActive
                   ? "bg-[#172554] text-white shadow-sm"
-                  : "text-[#404040] hover:bg-gray-50 hover:text-[#172554]"
+                  : "text-foreground/80 hover:bg-muted hover:text-foreground"
               )}
             >
               <item.icon
                 className={cn(
                   "h-4 w-4 shrink-0 transition-colors",
-                  isActive ? "text-white" : "text-[#737373] group-hover:text-[#172554]"
+                  isActive ? "text-white" : "text-muted-foreground group-hover:text-foreground"
                 )}
               />
               {!isCollapsed && <span>{item.name}</span>}
@@ -166,9 +145,9 @@ export function Sidebar() {
 
         <button
           onClick={logout}
-          className="group flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-[#404040] transition-all duration-200 hover:bg-red-50 hover:text-red-600"
+          className="group flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 hover:bg-red-500/10 hover:text-red-500 dark:hover:bg-red-500/20"
         >
-          <LogOut className="h-4 w-4 shrink-0 text-[#737373] transition-colors group-hover:text-red-600" />
+          <LogOut className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-red-500" />
           {!isCollapsed && <span>Logout</span>}
         </button>
       </div>

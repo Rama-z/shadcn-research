@@ -8,7 +8,7 @@ export function DashboardLayout() {
   const isCollapsed = useSidebarStore((s) => s.isCollapsed);
 
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-background">
       <Sidebar />
       <div
         className={cn(
@@ -16,9 +16,9 @@ export function DashboardLayout() {
           isCollapsed ? "ml-[68px]" : "ml-60"
         )}
       >
-        <div className="flex h-full flex-col overflow-hidden rounded-[12px] border border-[#E5E5E5] bg-white shadow-sm">
+        <div className="flex h-full flex-col overflow-hidden rounded-[12px] border border-border bg-card shadow-sm">
           <Navbar />
-          <main className="flex-1 overflow-y-auto p-6">
+          <main className="flex-1 overflow-y-auto p-6 text-foreground">
             <Outlet />
           </main>
         </div>
