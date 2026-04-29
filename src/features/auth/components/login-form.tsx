@@ -2,12 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UserRound, Lock, EyeOff, Eye } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuthStore } from "@/store/auth-store";
 import { mockUsers } from "@/lib/mock-data";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { UnemLogo } from "@/components/organisms/svg-resource/unem-logo/UnemLogo";
+// @ts-expect-error - Gradient.js is an untyped third-party library
+import Gradient from "@/lib/gradient/Gradient.js";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -18,10 +20,21 @@ export function LoginForm() {
   const { login } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const gradientRef = useRef<InstanceType<typeof Gradient> | null>(null);
 
   useEffect(() => {
     // Force light mode for login form
     document.documentElement.classList.remove("dark");
+
+    // Initialize Stripe WebGL gradient
+    const gradient = new Gradient();
+    gradient.initGradient("#gradient-canvas");
+    gradientRef.current = gradient;
+
+    return () => {
+      // Cleanup on unmount
+      gradientRef.current?.disconnect?.();
+    };
   }, []);
 
   const form = useForm({
@@ -51,18 +64,12 @@ export function LoginForm() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white font-sans">
-      {/* Background Video */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover"
-        >
-          <source src="/assets/videos/login-animation.mp4" type="video/mp4" />
-        </video>
-      </div>
+      {/* Stripe WebGL Gradient Background */}
+      <canvas
+        id="gradient-canvas"
+        data-transition-in
+        className="absolute inset-0 z-0 h-full w-full"
+      />
 
       {/* Brand Identity
       <div className="mb-8 flex flex-col items-center gap-[2.67px]">
