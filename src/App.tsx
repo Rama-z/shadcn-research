@@ -60,11 +60,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthGate />
-      <Toaster
-        theme={currentTheme}
-        position="bottom-right"
-        richColors
-      />
+      <Toaster theme={currentTheme} position="bottom-right" richColors />
     </QueryClientProvider>
   );
 }

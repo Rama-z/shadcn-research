@@ -1,6 +1,6 @@
-import { Bell, Search, Moon, Sun, Info } from "lucide-react";
+import { Bell, Moon, Sun, Info, ChevronRight } from "lucide-react";
+import { useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,43 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuthStore } from "@/store/auth-store";
 import { useThemeStore } from "@/store/theme-store";
 
+// ─── Route → Breadcrumb map ────────────────────────
+interface BreadcrumbEntry {
+  category?: string;
+  page: string;
+}
+
+const routeBreadcrumbs: Record<string, BreadcrumbEntry> = {
+  "/": { page: "Dashboard" },
+  "/data-quality": { category: "Data Management", page: "Data Quality" },
+  "/metadata": { category: "Data Management", page: "Metadata" },
+  "/reference": { category: "Data Management", page: "Reference" },
+  "/activity-log": { category: "Monitoring", page: "Activity Log" },
+  "/feature-management": { category: "Configuration", page: "Feature Management" },
+  "/users": { category: "User Management", page: "Users" },
+  "/roles": { category: "User Management", page: "Roles" },
+  "/permissions": { category: "User Management", page: "Permissions" },
+  "/settings": { page: "Settings" },
+};
+
+function Breadcrumb() {
+  const location = useRouterState({ select: (s) => s.location });
+  const entry = routeBreadcrumbs[location.pathname] ?? { page: "Page" };
+
+  return (
+    <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm">
+      {entry.category && (
+        <>
+          <span className="text-muted-foreground">{entry.category}</span>
+          <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/60" />
+        </>
+      )}
+      <span className="font-medium text-foreground">{entry.page}</span>
+    </nav>
+  );
+}
+
+// ─── Navbar ─────────────────────────────────────────
 export function Navbar() {
   const { user, logout } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
@@ -20,16 +57,11 @@ export function Navbar() {
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-4 border-b border-border bg-card px-6">
-      {/* Search */}
-      <div className="flex-1">
-        <div className="relative max-w-md">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search anything..."
-            className="border-0 bg-muted/50 pl-9 focus-visible:ring-1"
-          />
-        </div>
-      </div>
+      {/* Breadcrumb */}
+      <Breadcrumb />
+
+      {/* Spacer */}
+      <div className="flex-1" />
 
       {/* Actions */}
       <div className="flex items-center gap-2">

@@ -25,6 +25,130 @@
     --input: 240 5.9% 90%;
     --ring: 263.4 70% 50.4%;
     --radius: 0.75rem;
+
+    /* general */
+    --general-background: #ffffff; /* white */
+    --general-foreground: #0a0a0a; /* neutral/950 */
+    --general-primary: #005095; /* tritronik/900 */
+    --general-primary-foreground: #fafafa; /* neutral/50 */
+    --general-secondary: #f5f5f5; /* neutral/100 */
+    --general-secondary-foreground: #171717; /* neutral/900 */
+    --general-muted: #f5f5f5; /* neutral/100 */
+    --general-muted-foreground: #737373; /* neutral/500 */
+    --general-accent: #f5f5f5; /* neutral/100 */
+    --general-accent-foreground: #171717; /* neutral/900 */
+    --general-destructive: #dc2626; /* red/600 */
+    --general-border: #e5e5e5; /* neutral/200 */
+
+    /* focus */
+    --focus-ring: #d4d4d4; /* neutral/300 */
+
+    /* card */
+    --card: #ffffff; /* white */
+    --card-foreground: #0a0a0a; /* neutral/950 */
+
+    /* popover */
+    --popover: #000000; /* black */
+    --popover-foreground: #ffffff; /* white */
+
+    /* unofficial */
+    --unofficial-border-1: #f5f5f5; /* neutral/100 */
+    --unofficial-accent-2: #e5e5e5; /* neutral/200 */
+    --unofficial-accent-3: #d4d4d4; /* neutral/300 */
+    --unofficial-accent-0: #fafafa; /* neutral/50 */
+    --unofficial-border-0: #fafafa; /* neutral/50 */
+    --unofficial-border-3: #d4d4d4; /* neutral/300 */
+    --unofficial-primary-hover: #136fbe; /* tritronik/800 */
+    --unofficial-secondary-hover: #fafafa; /* neutral/50 */
+    --unofficial-mid-deprecated: #737373; /* neutral/500 */
+    --unofficial-mid-alt: #525252; /* neutral/600 */
+    --unofficial-ghost-hover: rgba(0, 0, 0, 0.05);
+
+    /* general */
+    --general-destructive-foreground: #ffffff; /* white */
+
+    /* unofficial */
+    --unofficial-ghost-foreground: #404040; /* neutral/700 */
+
+    /* focus */
+    --focus-ring-error: #fca5a5; /* red/300 */
+
+    /* unofficial */
+    --unofficial-destructive-subtle: #fef2f2; /* red/50 */
+
+    /* sidebar */
+    --sidebar-foreground: #404040; /* neutral/700 */
+    --sidebar-accent: #f5f5f5; /* neutral/100 */
+    --sidebar-primary: #005095; /* tritronik/900 */
+    --sidebar-primary-foreground: #fafafa; /* neutral/50 */
+    --sidebar-accent-foreground: #171717; /* neutral/900 */
+    --sidebar: #fafafa; /* neutral/50 */
+    --sidebar-border: #e5e5e5; /* neutral/200 */
+    --sidebar-ring: #d4d4d4; /* neutral/300 */
+
+    /* unofficial */
+    --unofficial-backdrop: rgba(0, 0, 0, 0.6);
+    --unofficial-border-4: #a3a3a3; /* neutral/400 */
+    --unofficial-border-5: #737373; /* neutral/500 */
+    --unofficial-destructive-border: #ef4444; /* red/500 */
+    --unofficial-outline: rgba(255, 255, 255, 0.1);
+    --unofficial-outline-hover: rgba(0, 0, 0, 0.0333);
+    --unofficial-foreground-alt: #404040; /* neutral/700 */
+    --unofficial-contrast-deprecated: #000000; /* black */
+    --unofficial-ghost: rgba(255, 255, 255, 0.0001);
+
+    /* sidebar */
+    --sidebar-unofficial-sidebar-muted: #737373; /* neutral/500 */
+
+    /* unofficial */
+    --unofficial-body-background: #ffffff; /* white */
+    --unofficial-outline-active: rgba(0, 0, 0, 0.05);
+    --unofficial-destructive-text: #dc2626; /* red/600 */
+
+    /* general */
+    --general-input: #ffffff; /* white */
+    --general-table-striped-background: rgba(0, 0, 0, 0.03);
+
+    /* unofficial */
+    --unofficial-breadcrumb: #005095; /* tritronik/900 */
+
+    /* focus */
+    --focus-ring-primary: #005095; /* tritronik/900 */
+
+    /* unofficial */
+    --unofficial-border-primary: #005095; /* tritronik/900 */
+    --unofficial-data-foreground: #005095; /* tritronik/900 */
+
+    /* general */
+    --general-mute-input: #f5f5f5; /* neutral/100 */
+    --general-page-bg: #f5f5f5; /* neutral/100 */
+
+    /* chart */
+    --chart-chart-1: #ffffff;
+    --chart-chart-2: #ffffff;
+    --chart-chart-3: #ffffff;
+    --chart-chart-4: #ffffff;
+    --chart-chart-5: #ffffff;
+
+    /* badge */
+    --badge-positive: #0d9488; /* teal/600 */
+    --badge-negative: #dc2626; /* red/600 */
+    --badge-warning: #d97706; /* amber/600 */
+    --badge-info: #2563eb; /* blue/600 */
+
+    /* semantic */
+    --semantic-success: #f0fdfa; /* teal/50 */
+    --semantic-success-border: #0d9488; /* teal/600 */
+    --semantic-success-foreground: #0d9488; /* teal/600 */
+    --semantic-error: #fef2f2; /* red/50 */
+    --semantic-error-border: #dc2626; /* red/600 */
+    --semantic-error-foreground: #dc2626; /* red/600 */
+    --semantic-warning: #fffbeb; /* amber/50 */
+    --semantic-warning-border: #d97706; /* amber/600 */
+    --semantic-warning-foreground: #d97706; /* amber/600 */
+    --semantic-info: #eff6ff; /* blue/50 */
+    --semantic-info-border: #2563eb; /* blue/600 */
+    --semantic-info-foreground: #2563eb; /* blue/600 */
   }
 
   .dark {
@@ -47,6 +171,130 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 263.4 70% 50.4%;
+
+    /* general */
+    --general-background: #171717; /* neutral/900 */
+    --general-foreground: #ffffff; /* white */
+    --general-primary: #dc2626; /* red/600 */
+    --general-primary-foreground: #fafafa; /* neutral/50 */
+    --general-secondary: #404040; /* neutral/700 */
+    --general-secondary-foreground: #1e3a8a; /* blue/900 */
+    --general-muted: #404040; /* neutral/700 */
+    --general-muted-foreground: #a3a3a3; /* neutral/400 */
+    --general-accent: #fef2f2; /* red/50 */
+    --general-accent-foreground: #dc2626; /* red/600 */
+    --general-destructive: #b91c1c; /* red/700 */
+    --general-border: #404040;
+
+    /* focus */
+    --focus-ring: #404040; /* neutral/700 */
+
+    /* card */
+    --card: #262626; /* neutral/800 */
+    --card-foreground: #ffffff; /* white */
+
+    /* popover */
+    --popover: #ffffff; /* white */
+    --popover-foreground: #000000; /* black */
+
+    /* unofficial */
+    --unofficial-border-1: #171717; /* neutral/900 */
+    --unofficial-accent-2: #262626; /* neutral/800 */
+    --unofficial-accent-3: #404040; /* neutral/700 */
+    --unofficial-accent-0: #0a0a0a; /* neutral/950 */
+    --unofficial-border-0: #0a0a0a; /* neutral/950 */
+    --unofficial-border-3: #262626; /* neutral/800 */
+    --unofficial-primary-hover: #172554; /* blue/950 */
+    --unofficial-secondary-hover: #171717; /* neutral/900 */
+    --unofficial-mid-deprecated: #737373; /* neutral/500 */
+    --unofficial-mid-alt: #a3a3a3; /* neutral/400 */
+    --unofficial-ghost-hover: rgba(255, 255, 255, 0.1);
+
+    /* general */
+    --general-destructive-foreground: #ffffff; /* white */
+
+    /* unofficial */
+    --unofficial-ghost-foreground: #ffffff; /* white */
+
+    /* focus */
+    --focus-ring-error: #6d2e2f;
+
+    /* unofficial */
+    --unofficial-destructive-subtle: #450a0a; /* red/950 */
+
+    /* sidebar */
+    --sidebar-foreground: #d4d4d4; /* neutral/300 */
+    --sidebar-accent: rgba(220, 38, 38, 0.5);
+    --sidebar-primary: #ef4444; /* red/500 */
+    --sidebar-primary-foreground: #fafafa; /* neutral/50 */
+    --sidebar-accent-foreground: #fafafa; /* neutral/50 */
+    --sidebar: #0a0a0a; /* neutral/950 */
+    --sidebar-border: #262626; /* neutral/800 */
+    --sidebar-ring: #404040; /* neutral/700 */
+
+    /* unofficial */
+    --unofficial-backdrop: rgba(0, 0, 0, 0.6);
+    --unofficial-border-4: #525252; /* neutral/600 */
+    --unofficial-border-5: #737373; /* neutral/500 */
+    --unofficial-destructive-border: #ef4444; /* red/500 */
+    --unofficial-outline: rgba(255, 255, 255, 0.05);
+    --unofficial-outline-hover: rgba(255, 255, 255, 0.1);
+    --unofficial-foreground-alt: #d4d4d4; /* neutral/300 */
+    --unofficial-contrast-deprecated: #ffffff; /* white */
+    --unofficial-ghost: rgba(255, 255, 255, 0.0001);
+
+    /* sidebar */
+    --sidebar-unofficial-sidebar-muted: #737373; /* neutral/500 */
+
+    /* unofficial */
+    --unofficial-body-background: #0a0a0a; /* neutral/950 */
+    --unofficial-outline-active: rgba(255, 255, 255, 0.15);
+    --unofficial-destructive-text: #f87171; /* red/400 */
+
+    /* general */
+    --general-input: #262626; /* neutral/800 */
+    --general-table-striped-background: rgba(255, 255, 255, 0.03);
+
+    /* unofficial */
+    --unofficial-breadcrumb: #fafafa; /* neutral/50 */
+
+    /* focus */
+    --focus-ring-primary: #b91c1c; /* red/700 */
+
+    /* unofficial */
+    --unofficial-border-primary: #003aac; /* sentri/800 */
+    --unofficial-data-foreground: #fafafa; /* neutral/50 */
+
+    /* general */
+    --general-mute-input: #171717; /* neutral/900 */
+    --general-page-bg: #f5f5f5; /* neutral/100 */
+
+    /* chart */
+    --chart-chart-1: #ffffff;
+    --chart-chart-2: #ffffff;
+    --chart-chart-3: #ffffff;
+    --chart-chart-4: #ffffff;
+    --chart-chart-5: #ffffff;
+
+    /* badge */
+    --badge-positive: #0f766e; /* teal/700 */
+    --badge-negative: #b91c1c; /* red/700 */
+    --badge-warning: #b45309; /* amber/700 */
+    --badge-info: #1d4ed8; /* blue/700 */
+
+    /* semantic */
+    --semantic-success: #ccfbf1; /* teal/100 */
+    --semantic-success-border: #0f766e; /* teal/700 */
+    --semantic-success-foreground: #0f766e; /* teal/700 */
+    --semantic-error: #ffe2e2; /* red/100 */
+    --semantic-error-border: #dc2626; /* red/600 */
+    --semantic-error-foreground: #dc2626; /* red/600 */
+    --semantic-warning: #fef3c7; /* amber/100 */
+    --semantic-warning-border: #b45309; /* amber/700 */
+    --semantic-warning-foreground: #b45309; /* amber/700 */
+    --semantic-info: #dbeafe; /* blue/100 */
+    --semantic-info-border: #1d4ed8; /* blue/700 */
+    --semantic-info-foreground: #1d4ed8; /* blue/700 */
   }
 }
 
