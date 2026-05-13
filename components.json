@@ -17,7 +17,8 @@
     "utils": "@/lib/utils",
     "ui": "@/components/atoms/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks"
+    "hooks": "@/shared/hooks",
+    "types": "@/types"
   },
   "registries": {
     "@tritronik": "http://172.16.2.205:30401/r/{name}.json"

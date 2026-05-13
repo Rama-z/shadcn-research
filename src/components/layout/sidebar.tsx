@@ -8,6 +8,8 @@ import {
   Settings,
   ChevronLeft,
   LogOut,
+  Shield,
+  User,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -30,7 +32,11 @@ const menuSections = [
   },
   {
     title: "CONFIGURATION",
-    items: [{ name: "Feature Management", href: "/feature-management", icon: Cog }],
+    items: [
+      { name: "Feature Management", href: "/feature-management", icon: Cog },
+      { name: "Roles Management", href: "/roles", icon: Shield },
+      { name: "User Management", href: "/users", icon: User },
+    ],
   },
 ];
 
