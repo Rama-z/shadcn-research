@@ -14,8 +14,11 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebarStore } from "@/store/sidebar-store";
-import { useAuthStore } from "@/store/auth-store";
+// import { useAuthStore } from "@/store/auth-store";
 import { UnemLogo } from "../organisms/svg-resource/unem-logo/UnemLogo.tsx";
+// import { logout } from "@/features/auth/auth.api.ts";
+import { useLogoutMutation } from "@/features/auth/auth.hooks.ts";
+// import { useAuth } from "@/features/auth/auth.hooks.ts";
 
 const menuSections = [
   {
@@ -44,8 +47,21 @@ const bottomNav = [{ name: "Settings", href: "/settings", icon: Settings }];
 
 export function Sidebar() {
   const { isCollapsed, setCollapsed } = useSidebarStore();
-  const { logout } = useAuthStore();
+  // const { logout } = useAuthStore();
   const matchRoute = useMatchRoute();
+  const logoutMutation = useLogoutMutation();
+
+  // Logout function
+  const handleLogout = async () => {
+    const refreshToken = JSON.parse(localStorage.getItem("auth") as string).refreshToken;
+    try {
+      await logoutMutation.mutateAsync({
+        refreshToken,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <aside
@@ -150,7 +166,7 @@ export function Sidebar() {
         })}
 
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="group flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-all duration-200 hover:bg-red-500/10 hover:text-red-500 dark:hover:bg-red-500/20"
         >
           <LogOut className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-red-500" />

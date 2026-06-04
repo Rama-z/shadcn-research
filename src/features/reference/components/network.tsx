@@ -18,6 +18,7 @@ import {
 import { ArrowUpDown, ListFilter, MoreHorizontal, Search } from "lucide-react";
 import React from "react";
 
+// ─── Types ──────────────────────────────────────────
 type SortDir = "asc" | "desc" | null;
 
 interface DataQualityRow {
@@ -34,8 +35,45 @@ interface DataQualityRow {
   completion: number;
 }
 
-export function DataQualityCompleteness({
-  // columns,
+// ─── Completion bar sub-component ───────────────────
+function CompletionBar({ value }: { value: number }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="h-2 w-24 overflow-hidden rounded-full bg-muted">
+        <div
+          className="h-full rounded-full bg-violet-500 transition-all"
+          style={{ width: `${value}%` }}
+        />
+      </div>
+      <span className="text-xs text-muted-foreground">{value}%</span>
+    </div>
+  );
+}
+
+// ─── Sortable header sub-component ──────────────────
+function SortableHeader({
+  label,
+  sortKey,
+  onSort,
+}: {
+  label: string;
+  sortKey: string;
+  currentSort: { key: string; dir: SortDir };
+  onSort: (key: string) => void;
+}) {
+  return (
+    <button
+      className="flex items-center gap-1 font-medium text-foreground transition-colors hover:text-foreground/80"
+      onClick={() => onSort(sortKey)}
+    >
+      {label}
+      <ArrowUpDown className="h-3.5 w-3.5 text-muted-foreground" />
+    </button>
+  );
+}
+
+export function NetworkReference({
+  columns,
   sort,
   handleSort,
   searchQuery,
@@ -48,7 +86,6 @@ export function DataQualityCompleteness({
   pagedData,
   totalPages,
 }: {
-  data: DataQualityRow[];
   columns: { key: string; label: string; className?: string }[];
   sort: { key: string; dir: SortDir };
   handleSort: (key: string) => void;
@@ -62,58 +99,8 @@ export function DataQualityCompleteness({
   pagedData: DataQualityRow[];
   totalPages: number;
 }) {
-  // ─── Completion bar sub-component ───────────────────
-  function CompletionBar({ value }: { value: number }) {
-    return (
-      <div className="flex items-center gap-2">
-        <div className="h-2 w-24 overflow-hidden rounded-full bg-muted">
-          <div
-            className="h-full rounded-full bg-violet-500 transition-all"
-            style={{ width: `${value}%` }}
-          />
-        </div>
-        <span className="text-xs text-muted-foreground">{value}%</span>
-      </div>
-    );
-  }
-
-  // ─── Sortable header sub-component ──────────────────
-  function SortableHeader({
-    label,
-    sortKey,
-    onSort,
-  }: {
-    label: string;
-    sortKey: string;
-    currentSort: { key: string; dir: SortDir };
-    onSort: (key: string) => void;
-  }) {
-    return (
-      <button
-        className="flex items-center gap-1 font-medium text-foreground transition-colors hover:text-foreground/80"
-        onClick={() => onSort(sortKey)}
-      >
-        {label}
-        <ArrowUpDown className="h-3.5 w-3.5 text-muted-foreground" />
-      </button>
-    );
-  }
-
-  const columns: { key: keyof DataQualityRow; label: string; className?: string }[] = [
-    { key: "date", label: "Date" },
-    { key: "ipAddress", label: "IP Address" },
-    { key: "region", label: "Region" },
-    { key: "vendor", label: "Vendor" },
-    { key: "neType", label: "NE Type", className: "w-20" },
-    { key: "technology", label: "Technology" },
-    { key: "rules", label: "Rules" },
-    { key: "totalFiles", label: "Total Files" },
-    { key: "category", label: "Category" },
-  ];
-
   return (
-    <div>
-      {/* ── Toolbar: Search + Filter ─────────────────── */}
+    <>
       <div className="flex flex-wrap items-center gap-3 px-6 py-4">
         <div className="relative min-w-[200px] max-w-sm flex-1">
           <Input
@@ -250,6 +237,6 @@ export function DataQualityCompleteness({
           </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

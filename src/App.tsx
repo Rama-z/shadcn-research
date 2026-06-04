@@ -4,7 +4,8 @@ import { Toaster } from "sonner";
 import { router } from "./routes/router.tsx";
 import { useAuthStore } from "@/store/auth-store";
 import { LoginForm } from "./features/auth/components/login-form.tsx";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { checkSession } from "./features/auth/auth.api";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,8 +19,9 @@ const queryClient = new QueryClient({
 import { useThemeStore } from "@/store/theme-store";
 
 function AuthGate() {
-  const { isAuthenticated, isLoading, setLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, login, logout, setLoading } = useAuthStore();
   const { theme } = useThemeStore();
+  const hasAttemptedRefresh = useRef(false);
 
   useEffect(() => {
     // Initialize theme based on store preference
@@ -28,11 +30,40 @@ function AuthGate() {
     } else {
       document.documentElement.classList.remove("dark");
     }
+  }, [theme]);
 
-    // Simulate checking auth state on mount
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, [setLoading, theme, isAuthenticated]);
+  useEffect(() => {
+    // Only attempt session check once on mount
+    if (hasAttemptedRefresh.current) return;
+    hasAttemptedRefresh.current = true;
+
+    // If already authenticated (shouldn't happen on fresh load, but guard anyway)
+    if (isAuthenticated) {
+      setLoading(false);
+      return;
+    }
+
+    // Check if we have auth data in localStorage
+    const authData = localStorage.getItem("auth");
+    if (!authData) {
+      // No stored auth at all — go straight to login
+      setLoading(false);
+      return;
+    }
+
+    // Validate the existing session via check-session API
+    checkSession()
+      .then((data) => {
+        // Session is still valid — restore it
+        login(data as any);
+      })
+      .catch((error) => {
+        // Session invalid — clear stale data and show login
+        localStorage.removeItem("auth");
+        logout();
+        console.log("Session check failed:", error);
+      });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return (

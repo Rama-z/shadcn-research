@@ -12,7 +12,7 @@ export function DashboardLayout() {
       <Sidebar />
       <div
         className={cn(
-          "flex flex-1 flex-col transition-all duration-300 p-4 pl-0",
+          "flex flex-1 flex-col p-4 pl-0 transition-all duration-300",
           isCollapsed ? "ml-[68px]" : "ml-60"
         )}
       >

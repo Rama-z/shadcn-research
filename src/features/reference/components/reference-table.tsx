@@ -2,12 +2,12 @@ import React, { useState, useMemo } from "react";
 
 import { Separator } from "@/components/ui/separator";
 import { DateTimeRangePicker, type DateTimeRange } from "@/components/ui/date-time-range-picker";
-import { DataQualityCompleteness } from "./data-quality-completeness";
-import { DataQualityTimeliness } from "./data-quatlity-timeliness";
-import { DataQualityValidity } from "./data-quality-validity";
+import { DataQualityTimeliness } from "@/features/data-quality/components/data-quatlity-timeliness";
+import { DataQualityCompleteness } from "@/features/data-quality/components/data-quality-completeness";
+import { IntegratedCams } from "./integrated-cams";
 
 // ─── Types ──────────────────────────────────────────
-type TabKey = "completeness" | "timeliness" | "validity";
+type TabKey = "integratedCam" | "configurationManagement";
 type SortDir = "asc" | "desc" | null;
 
 interface DataQualityRow {
@@ -159,8 +159,8 @@ const mockData: DataQualityRow[] = [
 ];
 
 // ─── Main component ─────────────────────────────────
-export function DataQualityTable() {
-  const [activeTab, setActiveTab] = useState<TabKey>("completeness");
+export function ReferenceTable() {
+  const [activeTab, setActiveTab] = useState<TabKey>("integratedCam");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -170,9 +170,8 @@ export function DataQualityTable() {
   });
 
   const tabs: { key: TabKey; label: string }[] = [
-    { key: "completeness", label: "Completeness" },
-    { key: "timeliness", label: "Timeliness" },
-    { key: "validity", label: "Validity" },
+    { key: "integratedCam", label: "Integrated Cam" },
+    { key: "configurationManagement", label: "Configuration Management" },
   ];
 
   // Toggle sort
@@ -261,16 +260,13 @@ export function DataQualityTable() {
     to: new Date(2026, 0, 24, 20, 0, 0),
   });
 
-  console.log(currentPage);
-  console.log(activeTab);
-
   const displayedDataQuality = useMemo(() => {
     switch (activeTab) {
-      case "completeness":
+      case "integratedCam":
         return (
-          <DataQualityCompleteness
-            columns={columns}
-            data={mockData}
+          <IntegratedCams
+            // columns={columns}
+            // data={mockData}
             sort={sort}
             handleSort={handleSort}
             searchQuery={searchQuery}
@@ -284,7 +280,7 @@ export function DataQualityTable() {
             totalPages={totalPages}
           />
         );
-      case "timeliness":
+      case "configurationManagement":
         return (
           <DataQualityTimeliness
             // columns={columns}
@@ -302,22 +298,7 @@ export function DataQualityTable() {
             totalPages={totalPages}
           />
         );
-      case "validity":
-        return (
-          <DataQualityValidity
-            sort={sort}
-            handleSort={handleSort}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            getPageNumbers={getPageNumbers}
-            // pagedData={pagedData}
-            totalPages={totalPages}
-          />
-        );
+
       default:
         return (
           <DataQualityCompleteness
@@ -345,7 +326,7 @@ export function DataQualityTable() {
       {/* ── Header: Title + Tabs + DatePicker ─────────── */}
       <div className="flex flex-col gap-4 px-6 pb-0">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-general-foreground">Data Quality</h2>
+          <h2 className="text-xl font-semibold text-general-foreground">Reference</h2>
           {/* Tabs */}
           <div className="inline-flex items-center rounded-lg border border-border bg-muted/40 p-1">
             {tabs.map((tab) => (

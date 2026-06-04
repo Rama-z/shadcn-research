@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
-import {
-  type AntColumnType,
-  DataTable as BaseDataTable,
-} from "@/components/ui/data-table";
+import { type AntColumnType, DataTable as BaseDataTable } from "@/components/ui/data-table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +11,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@/lib/utils";
 import type { ResourceTableProps } from "@/types/resource-table";
+import { useDebounce } from "@/shared";
 
-export function ResourceTable<T extends { id: string }>(
-  props: ResourceTableProps<T>,
-) {
+export function ResourceTable<T extends { id: string }>(props: ResourceTableProps<T>) {
   const { t } = useTranslation();
   const {
     title,
@@ -66,23 +61,16 @@ export function ResourceTable<T extends { id: string }>(
       dataIndex: "actions",
       key: "actions",
       render: (_, record) => (
-        <div
-          className="flex justify-center"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon-xs"
-                className="h-8 w-8 p-0 hover:bg-muted/50"
-              >
+              <Button variant="ghost" size="icon-xs" className="h-8 w-8 p-0 hover:bg-muted/50">
                 <MoreVertical className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-32">
               <DropdownMenuItem
-                className="gap-2 cursor-pointer"
+                className="cursor-pointer gap-2"
                 onClick={() => onActionClick(record as T)}
               >
                 <span>{t("common.edit")}</span>
@@ -92,10 +80,10 @@ export function ResourceTable<T extends { id: string }>(
                 : undefined) !== "PENDING" && (
                 <DropdownMenuItem
                   className={cn(
-                    "gap-2 cursor-pointer",
+                    "cursor-pointer gap-2",
                     typeof props.deleteClassName === "function"
                       ? props.deleteClassName(record as T)
-                      : props.deleteClassName || "text-destructive",
+                      : props.deleteClassName || "text-destructive"
                   )}
                   onClick={() => onDeleteClick?.(record as T)}
                 >
@@ -115,10 +103,8 @@ export function ResourceTable<T extends { id: string }>(
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-row justify-between items-center px-1">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          {title}
-        </h1>
+      <div className="flex flex-row items-center justify-between px-1">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
         <div className="flex items-center gap-3">
           {primaryActions?.map((action, index) => (
             <React.Fragment key={index}>{action}</React.Fragment>
@@ -126,8 +112,8 @@ export function ResourceTable<T extends { id: string }>(
         </div>
       </div>
 
-      <div className="bg-card rounded-xl border shadow-sm overflow-hidden flex flex-col">
-        <div className="flex flex-row justify-between items-center h-16 px-4 border-b">
+      <div className="flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm">
+        <div className="flex h-16 flex-row items-center justify-between border-b px-4">
           <p className="text-sm font-semibold text-muted-foreground">
             <Trans
               i18nKey="resourceTable.totalCount"
@@ -136,20 +122,17 @@ export function ResourceTable<T extends { id: string }>(
                 label: countLabel || t("common.items"),
               }}
               components={[
-                <span
-                  key="count"
-                  className="text-[#1B5EBF] dark:text-blue-400 font-bold"
-                />,
+                <span key="count" className="font-bold text-[#1B5EBF] dark:text-blue-400" />,
               ]}
             />
           </p>
 
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder={t("common.search")}
-                className="pl-9 bg-background h-10 w-96 shadow-sm"
+                className="h-10 w-96 bg-background pl-9 shadow-sm"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />

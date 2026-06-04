@@ -1,24 +1,17 @@
 import axios from "axios";
 
-import { API_ENDPOINTS } from "@/shared";
+import { API_ENDPOINTS } from "@/shared/constant/apiEndpoints";
 
 const axiosInstance = axios.create();
 
-const USER_API_URL = import.meta.env.VITE_USER_API_URL;
-const LICENSE_API_URL = import.meta.env.VITE_LICENSE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const url = config.url || "";
+    config.baseURL = API_URL;
 
-    if (url.startsWith("user/api/") || url.startsWith("/user/api/")) {
-      config.baseURL = USER_API_URL;
-    } else if (url.startsWith("v1/") || url.startsWith("/v1/")) {
-      config.baseURL = LICENSE_API_URL;
-    } else {
-      config.baseURL = import.meta.env.VITE_API_URL;
-    }
-
+    console.log("here2");
+    console.log(config);
     const isPublicEndpoint = config.url?.includes("/public/");
     const auth = localStorage.getItem("auth");
 
@@ -104,7 +97,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         const response = await axios.post(API_ENDPOINTS.AUTH.RE_REQUEST_TOKEN, null, {
-          baseURL: USER_API_URL,
+          baseURL: API_URL,
           params: { refreshToken },
         });
 

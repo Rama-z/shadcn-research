@@ -16,7 +16,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ArrowUpDown, ListFilter, MoreHorizontal, Search } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { MetadataFilterSheet, type MetadataFilters } from "./metadata-filter-sheet";
+import { EMPTY_METADATA_FILTERS } from "@/shared/constant/filterContent";
 
 type SortDir = "asc" | "desc" | null;
 
@@ -34,7 +36,7 @@ interface DataQualityRow {
   completion: number;
 }
 
-export function DataQualityCompleteness({
+export function MetadataContent({
   // columns,
   sort,
   handleSort,
@@ -62,6 +64,10 @@ export function DataQualityCompleteness({
   pagedData: DataQualityRow[];
   totalPages: number;
 }) {
+  // ─── Filter sheet state ─────────────────────────────
+  const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+  const [filters, setFilters] = useState<MetadataFilters>(EMPTY_METADATA_FILTERS);
+
   // ─── Completion bar sub-component ───────────────────
   function CompletionBar({ value }: { value: number }) {
     return (
@@ -114,7 +120,7 @@ export function DataQualityCompleteness({
   return (
     <div>
       {/* ── Toolbar: Search + Filter ─────────────────── */}
-      <div className="flex flex-wrap items-center gap-3 px-6 py-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
         <div className="relative min-w-[200px] max-w-sm flex-1">
           <Input
             placeholder="IP Address or Total Files..."
@@ -127,7 +133,12 @@ export function DataQualityCompleteness({
           />
           <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         </div>
-        <Button variant="outline" size="default" className="gap-2">
+        <Button
+          variant="outline"
+          size="default"
+          className="gap-2"
+          onClick={() => setFilterSheetOpen(true)}
+        >
           <ListFilter className="h-4 w-4" />
           Filter
         </Button>
@@ -250,6 +261,14 @@ export function DataQualityCompleteness({
           </Button>
         </div>
       </div>
+
+      {/* ── Filter Sheet ─────────────────────────────── */}
+      <MetadataFilterSheet
+        open={filterSheetOpen}
+        onOpenChange={setFilterSheetOpen}
+        filters={filters}
+        onApply={setFilters}
+      />
     </div>
   );
 }

@@ -1,9 +1,4 @@
-import {
-  createRouter,
-  createRoute,
-  createRootRoute,
-  Outlet,
-} from "@tanstack/react-router";
+import { createRouter, createRoute, createRootRoute, Outlet } from "@tanstack/react-router";
 
 import { LoginForm } from "../features/auth/components/login-form.tsx";
 import { DashboardPage } from "./dashboard-page";
@@ -12,12 +7,16 @@ import { RolesPage } from "./roles-page";
 import { PermissionsPage } from "./permissions-page";
 import { SettingsPage } from "./settings-page";
 import { DataQualityPage } from "./data-quality-page";
-import { MetadataPage } from "./metadata-page";
+// import { MetadataPage } from "./metadata-page";
 import { ReferencePage } from "./reference-page";
 import { ActivityLogPage } from "./activity-log-page";
 import { FeatureManagementPage } from "./feature-management-page";
 
 import { DashboardLayout } from "../components/layout/dashboard-layout.tsx";
+import { queryClient } from "@/lib/query-client.ts";
+import { checkSession } from "@/features/auth/auth.api";
+import { useAuthStore } from "@/store/auth-store";
+import { Metadata } from "@/features/metadata/components/metadata.tsx";
 
 // ─── Root Route ─────────────────────────────────────
 const rootRoute = createRootRoute({
@@ -35,6 +34,15 @@ const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authenticated",
   component: DashboardLayout,
+  beforeLoad: async () => {
+    try {
+      await checkSession();
+    } catch {
+      // Session is no longer valid — clear auth and redirect to login
+      localStorage.removeItem("auth");
+      useAuthStore.getState().logout();
+    }
+  },
 });
 
 // ─── Dashboard Route ────────────────────────────────
@@ -55,7 +63,7 @@ const dataQualityRoute = createRoute({
 const metadataRoute = createRoute({
   getParentRoute: () => layoutRoute,
   path: "/metadata",
-  component: MetadataPage,
+  component: Metadata,
 });
 
 // ─── Reference Route ────────────────────────────────
@@ -125,7 +133,12 @@ const routeTree = rootRoute.addChildren([
 ]);
 
 // ─── Router ─────────────────────────────────────────
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+});
 
 // ─── Type declaration ───────────────────────────────
 declare module "@tanstack/react-router" {

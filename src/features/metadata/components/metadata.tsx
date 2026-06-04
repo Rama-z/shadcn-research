@@ -2,9 +2,7 @@ import React, { useState, useMemo } from "react";
 
 import { Separator } from "@/components/ui/separator";
 import { DateTimeRangePicker, type DateTimeRange } from "@/components/ui/date-time-range-picker";
-import { DataQualityCompleteness } from "./data-quality-completeness";
-import { DataQualityTimeliness } from "./data-quatlity-timeliness";
-import { DataQualityValidity } from "./data-quality-validity";
+import { MetadataContent } from "./metadata-content";
 
 // ─── Types ──────────────────────────────────────────
 type TabKey = "completeness" | "timeliness" | "validity";
@@ -159,7 +157,7 @@ const mockData: DataQualityRow[] = [
 ];
 
 // ─── Main component ─────────────────────────────────
-export function DataQualityTable() {
+export function Metadata() {
   const [activeTab, setActiveTab] = useState<TabKey>("completeness");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -168,12 +166,6 @@ export function DataQualityTable() {
     key: "",
     dir: null,
   });
-
-  const tabs: { key: TabKey; label: string }[] = [
-    { key: "completeness", label: "Completeness" },
-    { key: "timeliness", label: "Timeliness" },
-    { key: "validity", label: "Validity" },
-  ];
 
   // Toggle sort
   const handleSort = (key: string) => {
@@ -264,90 +256,14 @@ export function DataQualityTable() {
   console.log(currentPage);
   console.log(activeTab);
 
-  const displayedDataQuality = useMemo(() => {
-    switch (activeTab) {
-      case "completeness":
-        return (
-          <DataQualityCompleteness
-            columns={columns}
-            data={mockData}
-            sort={sort}
-            handleSort={handleSort}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            getPageNumbers={getPageNumbers}
-            pagedData={pagedData}
-            totalPages={totalPages}
-          />
-        );
-      case "timeliness":
-        return (
-          <DataQualityTimeliness
-            // columns={columns}
-            // data={mockData}
-            sort={sort}
-            handleSort={handleSort}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            getPageNumbers={getPageNumbers}
-            // pagedData={pagedData}
-            totalPages={totalPages}
-          />
-        );
-      case "validity":
-        return (
-          <DataQualityValidity
-            sort={sort}
-            handleSort={handleSort}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            getPageNumbers={getPageNumbers}
-            // pagedData={pagedData}
-            totalPages={totalPages}
-          />
-        );
-      default:
-        return (
-          <DataQualityCompleteness
-            columns={columns}
-            data={mockData}
-            sort={sort}
-            handleSort={handleSort}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            getPageNumbers={getPageNumbers}
-            pagedData={pagedData}
-            totalPages={totalPages}
-          />
-        );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
-
   return (
     <div className="rounded-xl bg-card" id="data-quality-table">
       {/* ── Header: Title + Tabs + DatePicker ─────────── */}
       <div className="flex flex-col gap-4 px-6 pb-0">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-general-foreground">Data Quality</h2>
+          <h2 className="text-xl font-semibold text-general-foreground">Metadata</h2>
           {/* Tabs */}
-          <div className="inline-flex items-center rounded-lg border border-border bg-muted/40 p-1">
+          {/* <div className="inline-flex items-center rounded-lg border border-border bg-muted/40 p-1">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
@@ -364,7 +280,7 @@ export function DataQualityTable() {
                 {tab.label}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Date time range picker */}
           <DateTimeRangePicker value={dateRange} onChange={setDateRange} />
@@ -373,7 +289,21 @@ export function DataQualityTable() {
 
       <Separator className="mt-4" />
 
-      {displayedDataQuality}
+      <MetadataContent
+        columns={columns}
+        data={mockData}
+        sort={sort}
+        handleSort={handleSort}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        getPageNumbers={getPageNumbers}
+        pagedData={pagedData}
+        totalPages={totalPages}
+      />
     </div>
   );
 }
