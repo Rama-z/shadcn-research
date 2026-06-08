@@ -29,21 +29,28 @@ export interface IFilterSheetProps {
   filterOptions: TFilterOptions;
 }
 
+export interface ITableOptionsProps<T> {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  columns: TTableColumn<T>[];
+  onApply: (columns: TTableColumn<T>[]) => void;
+}
+
 export type TEstablishedTableProps<T> = {
   columns: TTableColumn<T>[];
-  sort: { key: string; dir: TSortDir };
-  handleSort: (key: string) => void;
-  searchQuery: string;
-  setSearchQuery: (value: string) => void;
-  currentPage: number;
-  setCurrentPage: (value: number) => void;
+  emptyFilter: TFilters<TFilterOptions>;
+  filterOptions: TFilterOptions;
+  showTableOptions?: boolean;
+};
+
+export type TPaginationProps = {
   rowsPerPage: number;
   setRowsPerPage: (value: number) => void;
+  setCurrentPage: (value: number) => void;
+  currentPage: number;
   getPageNumbers: () => (number | "ellipsis")[];
   pagedData: IDataQualityRow[];
   totalPages: number;
-  emptyFilter: TFilters<TFilterOptions>;
-  filterOptions: TFilterOptions;
 };
 
 // -- Filter Sheet --

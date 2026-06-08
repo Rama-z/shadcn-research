@@ -61,3 +61,149 @@ export const EMPTY_DATA_QUALITY_FILTERS: TFilters<typeof DATA_QUALITY_FILTER_OPT
   vendor: [],
   technology: [],
 };
+
+export const DATA_REFERENCE_2G_FILTER_OPTIONS = {
+  neName: {
+    label: "NE Name",
+    options: ["SkyWave", "Next Wave", "Virelia"],
+  },
+  neType: {
+    label: "NE Type",
+    options: ["Core", "Non-Core"],
+  },
+  rules: {
+    label: "Rules",
+    options: ["Rules A", "Rules B", "Rules C"],
+  },
+  category: {
+    label: "Category",
+    options: ["Hourly", "Quarterly"],
+  },
+  vendor: {
+    label: "Vendor",
+    options: ["Ericsson", "Huawei", "ZTE"],
+  },
+  technology: {
+    label: "Technology",
+    options: ["2G", "4G", "5G"],
+  },
+} as const satisfies TFilterOptions;
+
+export const EMPTY_DATA_REFERENCE_2G_FILTERS: TFilters<typeof DATA_QUALITY_FILTER_OPTIONS> = {
+  neName: [],
+  neType: [],
+  rules: [],
+  category: [],
+  vendor: [],
+  technology: [],
+};
+
+export const DATA_REFERENCE_4G_FILTER_OPTIONS = {
+  neName: {
+    label: "NE Name",
+    options: ["SkyWave", "Next Wave", "Virelia"],
+  },
+  neType: {
+    label: "NE Type",
+    options: ["Core", "Non-Core"],
+  },
+  rules: {
+    label: "Rules",
+    options: ["Rules A", "Rules B", "Rules C"],
+  },
+  category: {
+    label: "Category",
+    options: ["Hourly", "Quarterly"],
+  },
+  vendor: {
+    label: "Vendor",
+    options: ["Ericsson", "Huawei", "ZTE"],
+  },
+  technology: {
+    label: "Technology",
+    options: ["2G", "4G", "5G"],
+  },
+} as const satisfies TFilterOptions;
+
+export const EMPTY_DATA_REFERENCE_4G_FILTERS: TFilters<typeof DATA_QUALITY_FILTER_OPTIONS> = {
+  neName: [],
+  neType: [],
+  rules: [],
+  category: [],
+  vendor: [],
+  technology: [],
+};
+
+export const DATA_REFERENCE_5G_FILTER_OPTIONS = {
+  neName: {
+    label: "NE Name",
+    options: ["SkyWave", "Next Wave", "Virelia"],
+  },
+  neType: {
+    label: "NE Type",
+    options: ["Core", "Non-Core"],
+  },
+  rules: {
+    label: "Rules",
+    options: ["Rules A", "Rules B", "Rules C"],
+  },
+  category: {
+    label: "Category",
+    options: ["Hourly", "Quarterly"],
+  },
+  vendor: {
+    label: "Vendor",
+    options: ["Ericsson", "Huawei", "ZTE"],
+  },
+  technology: {
+    label: "Technology",
+    options: ["2G", "4G", "5G"],
+  },
+} as const satisfies TFilterOptions;
+
+export const EMPTY_DATA_REFERENCE_5G_FILTERS: TFilters<typeof DATA_QUALITY_FILTER_OPTIONS> = {
+  neName: [],
+  neType: [],
+  rules: [],
+  category: [],
+  vendor: [],
+  technology: [],
+};
+
+export const DATA_CONFIGURATION_MANAGEMENT_FILTER_OPTIONS = {
+  neName: {
+    label: "NE Name",
+    options: ["SkyWave", "Next Wave", "Virelia"],
+  },
+  neType: {
+    label: "NE Type",
+    options: ["Core", "Non-Core"],
+  },
+  rules: {
+    label: "Rules",
+    options: ["Rules A", "Rules B", "Rules C"],
+  },
+  category: {
+    label: "Category",
+    options: ["Hourly", "Quarterly"],
+  },
+  vendor: {
+    label: "Vendor",
+    options: ["Ericsson", "Huawei", "ZTE"],
+  },
+  technology: {
+    label: "Technology",
+    options: ["2G", "4G", "5G"],
+  },
+} as const satisfies TFilterOptions;
+
+export const EMPTY_DATA_CONFIGURATION_MANAGEMENT_FILTERS: TFilters<
+  typeof DATA_CONFIGURATION_MANAGEMENT_FILTER_OPTIONS
+> = {
+  neName: [],
+  neType: [],
+  rules: [],
+  category: [],
+  vendor: [],
+  technology: [],
+};

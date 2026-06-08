@@ -2,19 +2,26 @@ import { MoreHorizontal } from "lucide-react";
 
 import * as Components from "@/components";
 
-import { TEstablishedTableProps } from "../types";
+import { TPaginationProps } from "../types";
 
-export function Pagination({ ...props }: TEstablishedTableProps<any>) {
+export function Pagination({
+  rowsPerPage,
+  setRowsPerPage,
+  setCurrentPage,
+  currentPage,
+  getPageNumbers,
+  totalPages,
+}: TPaginationProps) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4">
       {/* Rows per page */}
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium text-foreground">Rows per page</span>
         <Components.Select
-          value={String(props.rowsPerPage)}
+          value={String(rowsPerPage)}
           onValueChange={(val) => {
-            props.setRowsPerPage(Number(val));
-            props.setCurrentPage(1);
+            setRowsPerPage(Number(val));
+            setCurrentPage(1);
           }}
         >
           <Components.SelectTrigger className="h-8 w-[70px]">
@@ -35,13 +42,13 @@ export function Pagination({ ...props }: TEstablishedTableProps<any>) {
         <Components.Button
           variant="ghost"
           size="sm"
-          disabled={props.currentPage <= 1}
-          onClick={() => props.setCurrentPage(Math.max(1, props.currentPage - 1))}
+          disabled={currentPage <= 1}
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
         >
           Previous
         </Components.Button>
 
-        {props.getPageNumbers().map((page, idx) =>
+        {getPageNumbers().map((page, idx) =>
           page === "ellipsis" ? (
             <Components.Button key={`e-${idx}`} variant="ghost" size="sm" disabled>
               <MoreHorizontal className="h-4 w-4" />
@@ -49,10 +56,10 @@ export function Pagination({ ...props }: TEstablishedTableProps<any>) {
           ) : (
             <Components.Button
               key={page}
-              variant={page === props.currentPage ? "outline" : "ghost"}
+              variant={page === currentPage ? "outline" : "ghost"}
               size="sm"
-              onClick={() => props.setCurrentPage(page)}
-              className={page === props.currentPage ? "shadow-xs border-border" : ""}
+              onClick={() => setCurrentPage(page)}
+              className={page === currentPage ? "shadow-xs border-border" : ""}
             >
               {page}
             </Components.Button>
@@ -62,8 +69,8 @@ export function Pagination({ ...props }: TEstablishedTableProps<any>) {
         <Components.Button
           variant="ghost"
           size="sm"
-          disabled={props.currentPage >= props.totalPages}
-          onClick={() => props.setCurrentPage(Math.min(props.totalPages, props.currentPage + 1))}
+          disabled={currentPage >= totalPages}
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
         >
           Next
         </Components.Button>
